@@ -47,5 +47,43 @@ public class EmailAccount {
         return false;
     }
 
+    public void printInbox() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        int total = 0;
+        int sinLeer = 0;
+
+        for (int i = 0; i < inbox.length; i++) {
+            Email e = inbox[i];
+            if (e != null) {
+                total++;
+                if (!e.isLeido()) {
+                    sinLeer++;
+                }
+                
+                String estado;
+                if (e.isLeido()) {
+                    estado = "LEÍDO";
+                } else {
+                    estado = "SIN LEER";
+                }
+            }
+        }
+    }
+    
+    public void leerEmail(int pos) {
+
+        if (pos < 0 || pos >= inbox.length) {
+            return;
+        }
+        
+        Email e = inbox[pos];
+
+        if (e != null) {
+            e.print();
+            e.marcarLeido();
+        }
+    }
 
 }

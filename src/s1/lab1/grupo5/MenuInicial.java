@@ -1,8 +1,11 @@
 package s1.lab1.grupo5;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 public class MenuInicial extends javax.swing.JFrame{
-    
+    private int contadorCtas=0;
+    private EmailAccount[] cuentas=new EmailAccount[10];
     public MenuInicial()
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,9 +112,39 @@ public class MenuInicial extends javax.swing.JFrame{
         crearCta.setFont(font);
         btnAceptar2.setBounds(225,300,150,40);
         
-        btnAceptar2.addActionListener(e->{
-            crearCta.dispose();
-            this.setVisible(true);
+        btnAceptar2.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e)
+            {
+                String nombreUsuario;
+                String direccionEmail;
+                String password;
+                nombreUsuario=fldNombre.getText();
+                direccionEmail=fldCorreo2.getText();
+                password=fldContra2.getText();
+                
+                if(!correoExc(direccionEmail))
+                {
+                    JOptionPane.showMessageDialog(null, "Correo no disponible, intente con otro");
+                    return;
+                }
+                if(!validPassword(password))
+                {
+                    JOptionPane.showMessageDialog(null, "Contrasena invalida, debe contener cinco caracteres"
+                            + ", por lo menos un simbolo, una letra mayuscula y un numero.");
+                    return;
+                }
+                
+                EmailAccount cuenta=new EmailAccount(direccionEmail, password, nombreUsuario);
+                verifEspacio(cuenta);
+                
+                crearCta.dispose();
+                MenuInicial.this.setVisible(true);
+                
+                fldNombre.setText("");
+                fldCorreo2.setText("");
+                fldContra2.setText("");
+                
+            }
         });
         
         btnLogin.addActionListener(e->{
@@ -135,5 +168,55 @@ public class MenuInicial extends javax.swing.JFrame{
                new MenuInicial().setVisible(true);
            }
        });
+    }
+    
+    private boolean correoExc(String direccionEmail)
+    {
+        for(int i=0;i<contadorCtas;i++)
+        {
+            if(cuentas[i]!=null && cuentas[i].getDireccionEmail().equalsIgnoreCase(direccionEmail))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private boolean validPassword(String password)
+    {
+        
+        if(password==null)
+        {
+            return false;
+        }
+        return password.matches("(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{5,}");
+    }
+    
+    private boolean verifEspacio(EmailAccount cuenta)
+    {
+        if(contadorCtas<cuentas.length)
+        {
+            cuentas[contadorCtas]=cuenta;
+            contadorCtas++;
+            return true;
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "No hay espacio para mas cuentas");
+            return false;
+        }
+    }
+    
+    private boolean verificarContra(String password, String direccionEmail)
+    {
+        for(int i=0;i<contadorCtas;i++)
+        {
+            if(cuentas[i]!=null && cuentas[i].getPassword().equals(password) && cuentas[i].getDireccionEmail().equalsIgnoreCase(direccionEmail))
+            {
+                return true;
+            }
+        }
+        return false;
+        
     }
 }

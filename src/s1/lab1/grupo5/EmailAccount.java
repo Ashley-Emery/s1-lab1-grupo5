@@ -8,6 +8,14 @@ package s1.lab1.grupo5;
  *
  * @author ashley
  */
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class EmailAccount {
+    
+    private String direccionEmail;
+    private String password;
+    private String nombreUsuario;
+    private Email[] inbox;
     
 }

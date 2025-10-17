@@ -24,5 +24,17 @@ public class EmailAccount {
         this.nombreUsuario = nombreUsuario;
         this.inbox = new Email[10];
     }
+    
+    public String getDireccionEmail() {
+        return direccionEmail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
 
 }

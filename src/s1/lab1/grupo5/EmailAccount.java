@@ -18,4 +18,11 @@ public class EmailAccount {
     private String nombreUsuario;
     private Email[] inbox;
     
+    public EmailAccount(String direccionEmail, String password, String nombreUsuario) {
+        this.direccionEmail = direccionEmail;
+        this.password = password;
+        this.nombreUsuario = nombreUsuario;
+        this.inbox = new Email[10];
+    }
+
 }

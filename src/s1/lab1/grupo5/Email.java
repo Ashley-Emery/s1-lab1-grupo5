@@ -56,4 +56,9 @@ public class Email {
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return fecha.format(fechaEnvio.getTime());
     }
+    
+    public void print() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String estado = leido ? "LEÍDO" : "SIN LEER";
+    }
 }

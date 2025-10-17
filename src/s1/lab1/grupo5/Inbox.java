@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
  * @author esteb
  */
 public class Inbox extends JFrame{
-    public Inbox(){
+    public Inbox(EmailAccount cuenta){
         setTitle("Bandeja de Entrada");
         setSize(600,600);
         setLayout(null);
@@ -26,7 +26,30 @@ public class Inbox extends JFrame{
         
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         lblFecha.setText("Fecha Actual: " + formato.format(Calendar.getInstance().getTime()));
+       
+        JTextArea area = new JTextArea();
+        area.setEditable(false);
+        area.setBounds(50, 70, 480, 450);
+        add(area);
         
+        Email[] inbox = getInbox(cuenta);
+        int total = 0;
+        int sinLeer = 0;
+        StringBuilder sb = new StringBuilder();
         
+        sb.append("Bandeja de Entrada");
+        
+    }
+    
+    private Email[] getInbox(EmailAccount cuenta){
+        try{
+            java.lang.reflect.Field f = EmailAccount.class.getDeclaredField("Inbox");
+            f.setAccessible(true);
+            return (Email[])
+           f.get(cuenta);
+        }catch(Exception e){
+            e.printStackTrace();
+            return new Email[0];
+        }
     }
 }

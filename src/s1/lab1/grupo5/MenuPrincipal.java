@@ -9,7 +9,7 @@ import javax.swing.*;
  * @author esteb
  */
 public class MenuPrincipal extends JFrame{
-    public MenuPrincipal(){
+    public MenuPrincipal(EmailAccount cuenta){
         
         setTitle("Menu Principal");
         setSize(600, 600);
@@ -23,7 +23,7 @@ public class MenuPrincipal extends JFrame{
         JButton btnInbox = new JButton("Ver Inbox");
         btnInbox.setBounds(200, 150, 200, 50);
         btnInbox.addActionListener( e -> {
-            new Inbox().setVisible(true);
+            new Inbox(cuenta).setVisible(true);
         });
         add(btnInbox);
         
@@ -52,7 +52,7 @@ public class MenuPrincipal extends JFrame{
     }
     
     public static void main(String[] args) {
-        MenuPrincipal menu = new MenuPrincipal();
+        MenuPrincipal() menu = new MenuPrincipal();
         menu.setVisible(true);
         menu.setLocationRelativeTo(null);
     }

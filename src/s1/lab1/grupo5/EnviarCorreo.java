@@ -14,7 +14,7 @@ public class EnviarCorreo extends JFrame{
     private JTextField txtDest, txtAsunto;
     private JTextArea txtContenido;
 
-    public EnviarCorreo() {
+    public MandarCorreoFrame() {
         setTitle("Mandar Correo");
         setSize(600, 600);
         setLayout(null);
@@ -55,10 +55,23 @@ public class EnviarCorreo extends JFrame{
             String contenido = txtContenido.getText();
 
             EmailAccount destinatario = null;
-            
+            for (EmailAccount c : JavaLook.cuentas) {
+                if (c != null && c.getDireccionEmail().equals(dest)) {
+                    destinatario = c;
+                    break;
+                }
+            }
+
             if (destinatario == null) {
                 JOptionPane.showMessageDialog(this, "Destinatario no encontrado");
                 return;
+            }
+
+            Email nuevo = new Email(JavaLook.accountActual.getDireccionEmail(), asunto, contenido);
+            if (destinatario.recibirEmail(nuevo)) {
+                JOptionPane.showMessageDialog(this, "Correo enviado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "El inbox del destinatario está lleno.");
             }
         });
     }

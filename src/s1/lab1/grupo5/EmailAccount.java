@@ -71,5 +71,19 @@ public class EmailAccount {
             }
         }
     }
+    
+    public void leerEmail(int pos) {
+
+        if (pos < 0 || pos >= inbox.length) {
+            return;
+        }
+        
+        Email e = inbox[pos];
+
+        if (e != null) {
+            e.print();
+            e.marcarLeido();
+        }
+    }
 
 }

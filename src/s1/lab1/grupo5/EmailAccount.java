@@ -36,5 +36,16 @@ public class EmailAccount {
     public String getNombreUsuario() {
         return nombreUsuario;
     }
+    
+    public boolean recibirEmail(Email em) {
+        for (int i = 0; i < inbox.length; i++) {
+            if (inbox[i] == null) {
+                inbox[i] = em;
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }
